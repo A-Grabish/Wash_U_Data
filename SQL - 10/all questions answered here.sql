@@ -90,4 +90,51 @@ FROM film
 LEFT JOIN inventory ON film.film_id = inventory.film_id
 WHERE title = 'hunchback impossible';
 
-#6
+#6e
+select first_name, last_name, SUM(amount) AS `total amount paid`
+FROM customer
+JOIN payment USING (customer_id)
+GROUP BY last_name;
+
+#7a
+select title, name as `film language` from film
+JOIN language USING (language_id)
+WHERE title LIKE 'k%' OR title LIKE 'q%';
+
+#7b
+select first_name, last_name FROM actor
+WHERE actor_id IN (
+	SELECT actor_id FROM film_actor
+	WHERE film_id = (
+		SELECT film_id FROM film
+		WHERE title = 'alone trip'))
+ORDER BY last_name;
+
+#7c
+select first_name, last_name, email, country.country
+FROM (((customer
+JOIN address ON customer.address_id = address.address_id)
+JOIN city ON address.city_id = city.city_id)
+JOIN country ON city.country_id = country.country_id)
+WHERE country = 'canada';
+
+#7d
+select title, name as `film category`
+from ((film
+	JOIN film_category ON film.film_id = film_category.film_id)
+    JOIN category ON film_category.category_id = category.category_id)
+WHERE name = 'family';
+
+#7e
+select title, COUNT(rental_id) AS `times rented`
+from((rental
+JOIN inventory ON rental.inventory_id = inventory.inventory_id)
+JOIN film ON inventory.film_id = film.film_id)
+GROUP BY title;
+
+#
+
+
+
+
+#fin
