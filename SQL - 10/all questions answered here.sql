@@ -56,15 +56,15 @@ UPDATE actor
 SET first_name = 'GROUCHO'
 WHERE first_name = 'HARPO' AND actor_id >= 0;
 
+
 #5a
 CREATE SCHEMA `sakila`;
-
-#SHOW CREATE TABLE `ADDRESS`;
 
 #TO FIND SCHEMA
 #SELECT `table_schema` 
 #FROM `information_schema`.`tables` 
 #WHERE `table_name` = 'ADDRESS';
+
 
 #6a
 select first_name, last_name, address
@@ -95,6 +95,7 @@ select first_name, last_name, SUM(amount) AS `total amount paid`
 FROM customer
 JOIN payment USING (customer_id)
 GROUP BY last_name;
+
 
 #7a
 select title, name as `film language` from film
@@ -130,9 +131,55 @@ select title, COUNT(rental_id) AS `times rented`
 from((rental
 JOIN inventory ON rental.inventory_id = inventory.inventory_id)
 JOIN film ON inventory.film_id = film.film_id)
-GROUP BY title;
+GROUP BY title
+ORDER BY `times rented` DESC;
 
-#
+#7f
+select store.store_id as `store id`, city, sum(amount) AS `store gross revenue`
+FROM ((((payment
+	JOIN staff ON payment.staff_id = staff.staff_id)
+    JOIN store ON staff.store_id = store.store_id)
+	JOIN address ON store.address_id = address.address_id)
+    JOIN city ON address.city_id = city.city_id)
+GROUP BY `store id`;
+
+#7g
+select store_id, city, country
+FROM (((store
+	JOIN address ON store.address_id = address.address_id)
+		JOIN city ON address.city_id = city.city_id)
+			JOIN country ON city.country_id = country.country_id);
+            
+#7h
+select name AS `film category`, SUM(amount) AS `gross revenue`
+FROM ((((category
+	JOIN film_category ON category.category_id = film_category.category_id)
+		JOIN inventory ON film_category.film_id = inventory.film_id)
+			JOIN rental ON inventory.inventory_id = rental.inventory_id)
+				JOIN payment ON rental.rental_id = payment.rental_id)
+GROUP BY `film category`
+ORDER BY `gross revenue` DESC
+LIMIT 5;
+
+
+#8a
+CREATE VIEW `top five genres` AS
+select name AS `film category`, SUM(amount) AS `gross revenue`
+FROM ((((category
+	JOIN film_category ON category.category_id = film_category.category_id)
+		JOIN inventory ON film_category.film_id = inventory.film_id)
+			JOIN rental ON inventory.inventory_id = rental.inventory_id)
+				JOIN payment ON rental.rental_id = payment.rental_id)
+GROUP BY `film category`
+ORDER BY `gross revenue` DESC
+LIMIT 5;
+
+#8b
+select * FROM `top five genres`;
+
+#8c
+DROP VIEW `top five genres`;
+
 
 
 
