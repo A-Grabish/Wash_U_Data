@@ -58,12 +58,7 @@ WHERE first_name = 'HARPO' AND actor_id >= 0;
 
 
 #5a
-CREATE SCHEMA `sakila`;
-
-#TO FIND SCHEMA
-#SELECT `table_schema` 
-#FROM `information_schema`.`tables` 
-#WHERE `table_name` = 'ADDRESS';
+SHOW CREATE TABLE address;
 
 
 #6a
