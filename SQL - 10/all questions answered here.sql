@@ -44,7 +44,7 @@ GROUP BY last_name;
 select last_name, COUNT(first_name)
 FROM actor
 GROUP BY last_name
-HAVING COUNT(first_name) >=3;
+HAVING COUNT(first_name) >=2;
 
 #4c
 UPDATE actor
@@ -70,7 +70,7 @@ LEFT JOIN address ON staff.address_id = address.address_id;
 select first_name, last_name, SUM(amount)
 FROM staff
 LEFT JOIN payment ON staff.staff_id = payment.staff_id
-WHERE payment_date between '2005-8-1' and '2005-8-30'
+WHERE payment_date between '2005-8-1' and '2005-8-31'
 GROUP BY first_name;
 
 #6c
