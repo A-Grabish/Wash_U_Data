@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mars Weather</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Misson to Mars</h1>
+            <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get the Facts!</a></p>
+
+        </div>
+
+            {% for condition in weather%}
+            <div class="row">
+                    <div class="col-md-8">
+                        <h2>News</h2>
+                        <h3>{{condition.title}}</h3>
+                        <p>{{condition.news}}</p>
+                    </div>
+                    <div class="col-md-4" style="border: 1px solid black">
+                        <h2>Current Martian Weather</h2>
+                        <p>{{ condition.tweet }}</p>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>Featured Mars Image</h2>
+                    <img class="img-responsive" src="{{condition.big_image}}">
+                </div>
+                <div class="col-md-4">
+                    <h2>Facts about Mars</h2>
+                    <div>{{condition.mars_table|safe}}</div>
+                </div>
+            </div>
+            <br>
+
+            <div class = "row">
+                <div class="col-md-6">
+                    <h3>{{condition.hemis[1]}}</h3>
+                    <img class="img-responsive" src="{{condition.hemis[11]}}">
+                </div>
+                <div class="col-md-6">
+                    <h3>{{condition.hemis[2]}}</h3>
+                    <img class="img-responsive" src="{{condition.hemis[22]}}">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>{{condition.hemis[3]}}</h3>
+                    <img class="img-responsive" src="{{condition.hemis[33]}}">
+                </div>
+                <div class="col-md-6">
+                    <h3>{{condition.hemis[4]}}</h3>
+                    <img class="img-responsive" src="{{condition.hemis[44]}}">
+                </div> 
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+
+</html>
+            
