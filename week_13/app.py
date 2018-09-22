@@ -4,20 +4,23 @@ import scrape_mars
 
 app = Flask(__name__)
 
-app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_app"
-mongo = PyMongo(app)
+# app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_app"
+# mongo = PyMongo(app)
+
+mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_weather_app")
 
 @app.route('/')
 def index():
-    weather = mongo.db.collection.find()
+    weather = mongo.db.weather.find_one()
     return render_template('index.html', weather=weather)
 
 
 @app.route('/scrape')
 def scrape():
 
-    weather = scrape_mars.scrape()
-
+    weather = mongo.db.weather
+    data = scrape_mars.scrape()
+    # mongo.db.collection.insert_one(weather)
     # weather = {
     #     "title": nasa["nasa"],
     #     "news": nasa["paragraph_url_nasa"],
@@ -33,7 +36,7 @@ def scrape():
     #     "hemi_4_name": hemispheres[4],
     #     "hemi_4_url": hemispheres[40]
     # }
-    mongo.db.collection.update(weather, upsert = true)
+    weather.update({}, data, upsert = True)
 
     return redirect("/", code=302)
 

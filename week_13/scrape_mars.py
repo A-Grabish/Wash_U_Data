@@ -103,27 +103,29 @@ def hemis_urls():
         img = results[0]
         #make dictionary of name and url and append to list
         thisdict = {}
-        thisdict = {x: title_url_nasa, 10*x: img['href']}
+        thisdict = {str(x): title_url_nasa, str(10*x): img['href']}
         hemisphere_image_urls.update(thisdict)
         x = x+1
     return hemisphere_image_urls
 
 def scrape():
-    scrape_dict = {}
+    
     nasa_results = nasa_func()
     image = featured_img()
     tweet = twitter()
     table = factoids()
     hemis = hemis_urls()
-    scrape_dict['title'] = nasa_results['nasa']
-    scrape_dict['news'] = nasa_results['paragraph']
-    scrape_dict['big_image'] = image['jpl_image']
-    scrape_dict['tweet'] = tweet['current_mars_weather']
-    scrape_dict['mars_table'] = table['table_key']
-    scrape_dict['hemis'] = hemis
+    scrape_dict = {
+    "title" : nasa_results['nasa'],
+    "news": nasa_results['paragraph'],
+    "big_image": image['jpl_image'],
+    "tweet": tweet['current_mars_weather'],
+    "mars_table" : table['table_key'],
+    "hemis": hemis,
+    }
     return scrape_dict
 
-browser.quit()
+
 
 
 # first = {'abc': 'def', 'xyz': 'zyx'}
@@ -132,4 +134,5 @@ browser.quit()
 # final['title'] = first
 # final['par'] = second['fgh']
 
-# print(final['par'])
+
+# print(scrape())
