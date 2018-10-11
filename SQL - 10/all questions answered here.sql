@@ -7,6 +7,8 @@ select first_name, last_name from actor;
 select CONCAT_WS(" ", UPPER(first_name), UPPER(last_name)) as `Actor Name`
 from actor;
 
+'PENELOPE GUINESS'
+
 
 #2a
 select actor_id, first_name, last_name FROM actor
