@@ -7,7 +7,7 @@ function buildMetadata(sample) {
 
   // Use `d3.json` to fetch the metadata for a sample
   d3.json(`/metadata/${sample}`).then(function(data){
-
+    console.log(data);
       // Use d3 to select the panel with id of `#sample-metadata`
     var metaBox = d3.select("#sample-metadata");
     // Use `.html("") to clear any existing metadata
@@ -19,7 +19,7 @@ function buildMetadata(sample) {
 
       Object.entries(data).forEach(([key, value]) => {
         metaBox.append("div").text(key + ": " + value);
-        console.log(key, value);
+        // console.log(key, value);
       })
     SpeedO(data.WFREQ);
       });
@@ -81,6 +81,7 @@ function init() {
 
   // Use the list of sample names to populate the select options
   d3.json("/names").then((sampleNames) => {
+    console.log(sampleNames);
     sampleNames.forEach((sample) => {
       selector
         .append("option")

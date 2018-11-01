@@ -90,20 +90,20 @@ var svg = d3.select("#scatter")
         .attr("cx", i=> xScale(i[`${Xsel.value}`]))
         .attr("cy", j => yScale(j[`${Ysel.value}`]))
         .attr("r", 15)
-        .style("opacity", .25)
-        .on("mouseover", function(d) {		
-            div.transition()		
-               .duration(200)		
-               .style("opacity", .9);		
-            div.html(d.state + "<br>" + `${Xsel.value}: ` + d[`${Xsel.value}`] + "<br>" + `${Ysel.value}: ` + d[`${Ysel.value}`])	
-               .style("left", (d3.event.pageX) + "px")		
-               .style("top", (d3.event.pageY - 28) + "px");	
-            })					
-        .on("mouseout", function(d) {		
-            div.transition()		
-                .duration(500)		
-                .style("opacity", 0);	
-        });
+        .style("opacity", .25);
+        // .on("mouseover", function(d) {		
+        //     div.transition()		
+        //        .duration(200)		
+        //        .style("opacity", .9);		
+        //     div.html(d.state + "<br>" + `${Xsel.value}: ` + d[`${Xsel.value}`] + "<br>" + `${Ysel.value}: ` + d[`${Ysel.value}`])	
+        //        .style("left", (d3.event.pageX) + "px")		
+        //        .style("top", (d3.event.pageY - 28) + "px");	
+        //     })					
+        // .on("mouseout", function(d) {		
+        //     div.transition()		
+        //         .duration(500)		
+        //         .style("opacity", 0);	
+        // });
 
 //text treated separately.  need extra a=>a in data() to ensure all data used
 //creates new index, otherwise first 24(?) don't get added-already has those index
